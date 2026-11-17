@@ -59,7 +59,7 @@ def check_report(data, source):
 def analyze(title, description, goal='', key=None, model=None):
     payload=validate_input(title,description,goal)
     key=key or os.getenv('GEMINI_API_KEY')
-    model=model or os.getenv('GEMINI_MODEL','gemini-2.5-flash')
+    model=model or os.getenv('GEMINI_MODEL','gemini-3.5-flash-lite')
     if not key: raise AnalysisError('GEMINI_API_KEY를 설정한 뒤 다시 실행해 주세요.')
     if not re.fullmatch(r'[A-Za-z0-9._-]+',model): raise AnalysisError('모델 ID를 확인해 주세요.')
     body={'systemInstruction':{'parts':[{'text':SYSTEM}]},'contents':[{'role':'user','parts':[{'text':json.dumps(payload,ensure_ascii=False)}]}], 'generationConfig':{'responseMimeType':'application/json','responseJsonSchema':Report.model_json_schema(),'temperature':0.2}}
@@ -72,7 +72,7 @@ def analyze(title, description, goal='', key=None, model=None):
         raw=''.join(p.get('text','') for p in candidate['content']['parts'] if not p.get('thought'))
         report=check_report(json.loads(raw),'\n'.join(payload.values()))
     except urllib.error.HTTPError as e:
-        messages={400:'요청 또는 모델 설정을 확인해 주세요.',401:'API Key 인증을 확인해 주세요.',403:'API Key 권한을 확인해 주세요.',404:'사용 가능한 모델 ID를 확인해 주세요.',429:'호출 한도에 도달했습니다. 잠시 후 재시도해 주세요.'}
+        messages={400:'요청 또는 모델 설정을 확인해 주세요.',401:'API Key 인증을 확인해 주세요.',403:'API Key 권한을 확인해 주세요.',404:'사용 가능한 모델 ID를 확인해 주세요.',429:'API 호출 한도(429)에 도달했습니다. AI Studio에서 분당 요청·토큰 및 일일 한도를 확인해 주세요. 일일 한도는 태평양 시간 자정에 초기화됩니다. 같은 프로젝트의 API Key 교체로 한도는 늘지 않습니다.'}
         raise AnalysisError(messages.get(e.code,'AI 서비스 오류입니다. 잠시 후 재시도해 주세요.')) from None
     except (TimeoutError,urllib.error.URLError): raise AnalysisError('연결이 지연되거나 실패했습니다. 네트워크를 확인하고 재시도해 주세요.') from None
     except (ValueError,KeyError,IndexError,ValidationError): raise AnalysisError('분석 결과 형식이 올바르지 않습니다. 재시도해 주세요.') from None

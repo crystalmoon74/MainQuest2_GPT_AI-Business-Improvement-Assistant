@@ -17,7 +17,7 @@ with st.sidebar:
     st.markdown('**01  업무 요청 작성**\n\n02  AI 요구사항 분석\n\n03  보고서 검토')
     st.divider()
     st.caption('MAIN QUEST 02 · PoC\n\n업무 문제를 명확하게 정의하고, 더 나은 업무 방식을 검토합니다.')
-    st.caption('모델: '+os.getenv('GEMINI_MODEL','gemini-2.5-flash'))
+    st.caption('모델: '+os.getenv('GEMINI_MODEL','gemini-3.5-flash-lite'))
 st.caption('WORKSPACE / 업무 개선 요청 분석')
 st.title('업무의 불편함을, 개선의 출발점으로.')
 st.write('현재 업무를 설명해 주세요. AI가 핵심 문제와 추가 확인 사항을 정리합니다.')

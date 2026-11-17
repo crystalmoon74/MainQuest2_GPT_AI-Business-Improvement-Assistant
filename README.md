@@ -12,7 +12,7 @@ Python 3.11 이상을 권장합니다. 저장소 폴더에서 PowerShell로 실�
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 $env:GEMINI_API_KEY="본인의_API_Key"
-$env:GEMINI_MODEL="gemini-2.5-flash"
+$env:GEMINI_MODEL="gemini-3.5-flash-lite"
 .\.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
@@ -24,7 +24,7 @@ macOS / Linux:
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 export GEMINI_API_KEY='your-key'
-export GEMINI_MODEL='gemini-2.5-flash'
+export GEMINI_MODEL='gemini-3.5-flash-lite'
 .venv/bin/python -m streamlit run app.py
 ```
 
@@ -62,3 +62,13 @@ GitHub Pages는 Python 서버를 실행할 수 없습니다. Streamlit Community
 https://eaw-business-improvement.urbanshortbread16.chatgpt.site
 
 설치 없이 접속할 수 있습니다. 샘플 보고서는 사람이 작성한 예시이며 실제 AI 실행 결과가 아닙니다. 자유 입력을 실제 분석하려면 웹 화면의 실제 AI 분석 연결에서 본인의 Gemini API Key를 입력하세요. 키는 저장하지 않고 브라우저에서 Google API로 직접 전송합니다. 웹 소스는 `web/`에 포함했습니다. 이 정적 웹 버전은 GitHub Pages에도 배포할 수 있습니다. Python·Streamlit 버전과는 별도 실행 경로입니다.
+
+## 모델 및 무료 한도 안내 (2026-11-17)
+
+기본 모델은 `gemini-3.5-flash-lite`로 변경했습니다. 무료 등급 후보는 `gemini-3.1-flash-lite`, `gemini-2.5-flash-lite`입니다. 무료 등급 제공은 무제한 사용을 뜻하지 않으며 프로젝트별 실제 할당량과 이용 권한을 확인해야 합니다. 유료 프로젝트에서는 과금될 수 있습니다. 모델을 자동으로 전환하거나 재시도하지 않습니다.
+
+429는 분당 요청 수(RPM), 분당 입력 토큰(TPM), 일일 요청 수(RPD) 등에 의해 발생할 수 있습니다. 웹 버전은 응답에 한도 정보가 있을 때 분당/일일/할당량 0 및 재시도 시간을 구분합니다. 일일 한도는 태평양 시간 자정에 초기화되며, 같은 프로젝트에서 키만 바꾸어도 한도가 늘지 않습니다.
+
+공식 문서: https://ai.google.dev/gemini-api/docs/pricing · https://ai.google.dev/gemini-api/docs/rate-limits · https://ai.google.dev/gemini-api/docs/deprecations
+
+현재 수정은 구문·자동 검사로 확인했으며 사용자 API Key로 실제 모델 호출/남은 할당량을 확인하지 않았습니다.
