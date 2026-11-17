@@ -56,3 +56,9 @@ GitHub Pages는 Python 서버를 실행할 수 없습니다. Streamlit Community
 `app.py`: 입력·상태·보고서 UI / `agent.py`: 분석과 근거 검증 / `evaluate.py`: 실제 실험 / `tests/`: 자동 검사. DB, ERP 연결, 이력 저장, 멀티 Agent는 포함하지 않습니다.
 
 기업 기밀·개인정보를 입력하지 마세요. 인용 검증은 문장 의미를 보장하지 않으므로 결과는 사람이 검토해야 합니다. 입력은 Gemini로 전송되며 사용 전 해당 API 데이터 처리 정책을 확인하세요.
+
+## 공개 웹 버전
+
+https://eaw-business-improvement.urbanshortbread16.chatgpt.site
+
+설치 없이 접속할 수 있습니다. 샘플 보고서는 사람이 작성한 예시이며 실제 AI 실행 결과가 아닙니다. 자유 입력을 실제 분석하려면 웹 화면의 실제 AI 분석 연결에서 본인의 Gemini API Key를 입력하세요. 키는 저장하지 않고 브라우저에서 Google API로 직접 전송합니다. 웹 소스는 `web/`에 포함했습니다. 이 정적 웹 버전은 GitHub Pages에도 배포할 수 있습니다. Python·Streamlit 버전과는 별도 실행 경로입니다.
